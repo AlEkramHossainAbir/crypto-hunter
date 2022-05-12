@@ -24,7 +24,7 @@ const darkTheme = createTheme({
     },
 
 });
-const Header = () => {
+const Header = ({name}) => {
     const classes = useStyles()
 
     const { currency, setCurrency } = CryptoState()
