@@ -14,16 +14,16 @@ const useStyles = makeStyles(() => ({
 
     },
     carouselItems: {
-        display:'flex',
-        flexDirection:'column',
-        alignItems:'center',
-        cursor:'pointer',
-        textTransform:'uppercase',
-        color:'white'
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        cursor: 'pointer',
+        textTransform: 'uppercase',
+        color: 'white'
     },
 }))
 
-export const numberWithCommas = (x) =>{
+export const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
@@ -32,7 +32,7 @@ const Carousel = () => {
 
     const classes = useStyles()
 
-    const { currency,symbol } = CryptoState()
+    const { currency, symbol } = CryptoState()
 
 
     const fetchTrendingCoins = async () => {
@@ -53,9 +53,8 @@ const Carousel = () => {
         }
     };
 
-    const items = trending.map((coin) => {
+    const items = trending.map((coin) => {  
         let profit = coin?.price_change_percentage_24h >= 0;
-        console.log(coin)
         return (
             <Link
                 className={classes.carouselItems}
@@ -69,7 +68,10 @@ const Carousel = () => {
                 <span>
                     {coin.symbol}
                     &nbsp;
-                    <span style={{ color: "red" }}>
+                    <span style={{
+                        color: profit < 0 ? "rgb(14,203,129)" : "red",
+                        fontWeight: 500,
+                    }}>
                         {profit && "+"}
                         {coin?.market_cap_change_percentage_24h?.toFixed(2)}%
                     </span>
