@@ -13,6 +13,7 @@ import {
     ThemeProvider,
     Typography
 } from '@material-ui/core';
+import { Pagination } from '@material-ui/lab';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -24,6 +25,7 @@ const CoinsTable = () => {
     const [coins, setCoins] = useState([])
     const [loading, setLoading] = useState(false)
     const [search, setSearch] = useState('')
+    const [page, setPage] = useState(1)
 
     const { currency, symbol } = CryptoState()
 
@@ -60,6 +62,11 @@ const CoinsTable = () => {
                 backgroundColor:'#131111'
             }
 
+        },
+        pagination:{
+            "& .MuiPaginationItem-root":{
+                color:'gold',
+            }
         }
     });
     const classes = useStyles();
@@ -116,7 +123,9 @@ const CoinsTable = () => {
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {handleSearch().map(row => {
+                                        {handleSearch()
+                                        .slice((page-1)*10,((page-1)*10)+10)
+                                        .map(row => {
                                             const profit = row.price_change_percentage_24h > 0;
                                             return (
                                                 <TableRow onClick={() => navigate(`/coins/${row.id}`)}
@@ -186,6 +195,19 @@ const CoinsTable = () => {
                         }
 
                     </TableContainer>
+                    <Pagination 
+                    style={{
+                        padding:20,
+                        width:'100%',
+                        display:'flex',
+                        justifyContent:'center',
+                    }}
+                    classes={{ul: classes.pagination}}
+                    onChange={(_,value)=>{
+                        setPage(value);
+                        window.scroll(0,450)
+                    }}
+                    count={(handleSearch().length/10).toFixed()}></Pagination>
                 </Container>
             </ThemeProvider>
 
