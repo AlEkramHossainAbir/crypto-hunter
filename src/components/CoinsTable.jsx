@@ -203,7 +203,7 @@ const CoinsTable = () => {
                         justifyContent:'center',
                     }}
                     classes={{ul: classes.pagination}}
-                    onChange={(_,value)=>{
+                    onChange={(value)=>{
                         setPage(value);
                         window.scroll(0,450)
                     }}
