@@ -18,13 +18,14 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CoinList } from '../config/api';
 import { CryptoState } from '../CryptoContext';
+import { numberWithCommas } from './banner/Carousel';
 
 const CoinsTable = () => {
     const [coins, setCoins] = useState([])
     const [loading, setLoading] = useState(false)
     const [search, setSearch] = useState('')
 
-    const { currency } = CryptoState()
+    const { currency, symbol } = CryptoState()
 
     const fetchCoins = async () => {
         setLoading(true)
@@ -54,6 +55,10 @@ const CoinsTable = () => {
         row: {
             backgroundColor: "#16171a",
             cursor: 'pointer',
+            fontFamily:'Montserrat',
+            "&:hover":{
+                backgroundColor:'#131111'
+            }
 
         }
     });
@@ -118,27 +123,59 @@ const CoinsTable = () => {
                                                     key={row.name}
                                                     className={classes.row}
                                                 >
-                                                    <TableCell 
-                                                    component='th' 
-                                                    scope='row'
-                                                    style={{
-                                                        display:'flex',
-                                                        gap:15
-                                                    }}
-                                                    >
-                                                        <img src={row?.image} 
-                                                        alt={row?.name}
+                                                    <TableCell
+                                                        component='th'
+                                                        scope='row'
                                                         style={{
-                                                            height:50,
-                                                            marginBottom: 10,
+                                                            display: 'flex',
+                                                            gap: 15
                                                         }}
+                                                    >
+                                                        <img src={row?.image}
+                                                            alt={row?.name}
+                                                            style={{
+                                                                height: 50,
+                                                                marginBottom: 10,
+                                                            }}
                                                         />
-                                                        
-                                                        {row.name}</TableCell>
-                                                    {console.log(row)}
-                                                    <TableCell>{profit}</TableCell>
-                                                    <TableCell>{row.name}</TableCell>
-                                                    <TableCell>{row.name}</TableCell>
+                                                        <div style={{
+
+                                                            display: 'flex',
+                                                            flexDirection: 'column'
+                                                        }}>
+                                                            <span style={{
+                                                                textTransform: 'uppercase',
+                                                                fontSize: 22,
+                                                            }}>
+                                                                {row.symbol}
+                                                            </span>
+                                                            <span style={{
+                                                                color: 'darkgray'
+                                                            }}>
+                                                                {row.name}
+                                                            </span>
+
+                                                        </div>
+
+                                                    </TableCell>
+                                                    <TableCell align='right'>
+                                                        { `${symbol} ${numberWithCommas(row.current_price.toFixed(2))}`}
+                                                    </TableCell>
+                                                    <TableCell align='right'
+                                                        style={{
+                                                            color: profit > 0 ? "rgb(14,203,129)" : "red",
+                                                            fontWeight: 500,
+                                                        }}
+                                                    >
+                                                        {profit && "+"}
+                                                        {row.price_change_percentage_24h.toFixed(2)}%
+
+                                                    </TableCell>
+                                                    <TableCell align='right'>
+                                                        {symbol}
+                                                        {" "}
+                                                        {numberWithCommas((row.market_cap.toString().slice(0,-6)))}M
+                                                    </TableCell>
                                                 </TableRow>
                                             )
                                         })}
