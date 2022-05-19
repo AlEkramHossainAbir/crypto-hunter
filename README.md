@@ -73,5 +73,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 useful Link
 
+carousel
+
 https://www.npmjs.com/package/react-alice-carousel
+
+react chart js
+
+https://www.npmjs.com/package/react-chartjs-2 
+
 
