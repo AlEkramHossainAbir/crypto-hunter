@@ -81,4 +81,7 @@ react chart js
 
 https://www.npmjs.com/package/react-chartjs-2 
 
+https://react-chartjs-2.js.org/
+
+https://www.chartjs.org/docs/latest/
 

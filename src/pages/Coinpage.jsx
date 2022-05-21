@@ -23,7 +23,7 @@ const Coinpage = () => {
     useEffect(() => {
         fetchCoins()
     }, [])
-    console.log("coin: " + coin)
+
 
     const useStyles = makeStyles((theme) => ({
         container: {
